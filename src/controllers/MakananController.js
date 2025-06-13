@@ -1,6 +1,7 @@
 const autoBind = require("auto-bind");
 const ClientError = require("../exceptions/ClientError");
 const MakananService = require("../services/postgres/MakananService");
+const MakananValidator = require("../validation/makanan");
 
 const makananService = new MakananService();
 
@@ -11,9 +12,10 @@ class MakananController {
     }
 
     async postMakananHandler(req, res) {
-        const { makanan, kategori_id } = req.body;
-
         try {
+            MakananValidator.validateMakananPayload(req.body);
+            const { makanan, kategori_id } = req.body;
+
             const makananId = await this._service.addMakanan({ makanan, kategori_id });
 
             return res.status(201).json({

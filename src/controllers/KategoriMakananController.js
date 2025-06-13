@@ -1,6 +1,8 @@
 const autoBind = require("auto-bind");
 const KategoriMakananService = require("../services/postgres/KategoriMakananService");
 const ClientError = require("../exceptions/ClientError");
+const KategoriMakananValidator = require("../validation/kategoriMakanan");
+
 
 const kategoriMakananService = new KategoriMakananService();
 
@@ -11,9 +13,11 @@ class KategoriMakananController {
   }
 
   async postKategoriMakananHandler(req, res) {
-    const {nama} = req.body;
-
     try {
+      KategoriMakananValidator.validateKategoriMakananPayload(req.body);
+      
+      const {nama} = req.body;
+
       const kategoriMakananId = await this._service.addKategoriMakanan({nama});
 
       return res.status(201).json({

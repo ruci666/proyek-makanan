@@ -24,7 +24,6 @@ A simple RESTful API built using **Node.js**, **Express**, and **PostgreSQL**, w
 
 1. **Clone this repo**
 
-bash
 git clone https://github.com/ruci666/proyek-makanan
 cd internship-backend
 
